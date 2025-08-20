@@ -1,38 +1,167 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .wallet-card-section::before {
+    height: 55px;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  
 
-.App-link {
-  color: #61dafb;
-}
+  .chat-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+    /* small space between input and button */
   }
-  to {
-    transform: rotate(360deg);
+
+  .chat-input-wrapper .form-group {
+    flex: 1;
+    /* make input take full width except button */
+    margin: 0;
   }
-}
+
+  .vertical-nav {
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    margin-left: 10px;
+    gap: 2px;
+    align-items: stretch;
+    /* narrow to match vertical text */
+  }
+
+  .nav-btn {
+    writing-mode: vertical-rl;
+    /* Vertical text */
+    transform: rotate(180deg);
+    /* Makes text upright */
+    background-color: #6236FF;
+    color: white;
+    border: none;
+    flex: 1;
+    padding: 10px 5px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0;
+
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+
+  .nav-btn:hover {
+    background-color: #00b4ff;
+
+  }
+
+  .nav-btn.active {
+    background-color: #00b4ff;
+    color: #fff;
+
+  }
+
+  /* Make them look like one continuous block */
+  .nav-btn:first-child {
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+  }
+
+  .nav-btn:last-child {
+    border-bottom-left-radius: 1px;
+    border-bottom-right-radius: 1px;
+  }
+
+  .appFooter .footer-title {
+    line-height: 3;
+  }
+
+  .splide__slide .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 220px;
+
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .splide__slide .card {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+  }
+
+  .balance-section {
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+  }
+
+  .balance-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .balance-top label {
+    font-weight: bold;
+  }
+
+  .balance-top input[type="number"] {
+    width: 206px;
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  .row-buttons {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .radio-group {
+    display: flex;
+    gap: 8px;
+    margin-right: 10px;
+  }
+
+  .radio-group label {
+    background: #eee;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .radio-group input {
+    display: none;
+  }
+
+  .radio-group input:checked+label {
+    background: #007bff;
+    color: white;
+  }
+
+  button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .pump-btn {
+    background: green;
+    color: white;
+  }
+
+  .dump-btn {
+    background: red;
+    color: white;
+  }
