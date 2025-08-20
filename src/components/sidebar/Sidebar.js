@@ -59,8 +59,7 @@ function Sidebar() {
 
                                 <Link
                                     className="action-button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#depositActionSheet"
+                                    to="/wallet"
                                 >
                                     <div className="in">
                                         <div className="iconbox">
@@ -102,6 +101,7 @@ function Sidebar() {
                                             <ion-icon name="card-outline"></ion-icon>
                                         </div>
                                         <div className="in">Withdraw</div>
+
                                     </Link>
                                 </li>
 
