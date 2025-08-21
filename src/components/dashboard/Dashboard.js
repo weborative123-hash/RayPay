@@ -20,24 +20,29 @@ const Dashboard = () => {
     const apexChartRef = useRef(null);
 
     // Initialize ApexCharts
+    const lastXRef = useRef(new Date().getTime());
+
     useEffect(() => {
         if (!chartRef.current) return;
 
-        const startDate = new Date("2023-01-01").getTime();
-        const dates = Array.from({ length: 10 }, (_, i) => ({
-            x: startDate + i * 100,
-            y: 100 + Math.floor(Math.random() * 100),
-        }));
-
         const options = {
-            series: [{ name: "XYZ MOTORS", data: dates }],
+            series: [
+                { name: "Gain", data: [] },  // green line
+                { name: "Loss", data: [] },  // red line
+            ],
             chart: {
-                type: "area",
-                stacked: false,
+                type: "line",
                 height: 350,
-                zoom: { type: "x", enabled: true, autoScaleYaxis: true },
+                animations: {
+                    enabled: true,
+                    easing: "linear",
+                    dynamicAnimation: { speed: 1000 },
+                },
                 toolbar: { show: false },
+                zoom: { enabled: false },
             },
+            stroke: { curve: "smooth", width: 2 },
+            colors: ["#00B746", "#FF4560"], // green, red
             dataLabels: { enabled: false },
             markers: { size: 0 },
             title: {
@@ -50,23 +55,44 @@ const Dashboard = () => {
                 align: "left",
                 style: { fontSize: "16px", fontWeight: 900 },
             },
-            fill: {
-                type: "gradient",
-                gradient: { shadeIntensity: 1, inverseColors: false, opacityFrom: 0.5, opacityTo: 0, stops: [0, 90, 100] },
+            xaxis: {
+                labels: { show: false },
+                axisBorder: { show: false },
+                axisTicks: { show: false },
             },
-            xaxis: { labels: { show: false }, axisBorder: { show: false }, axisTicks: { show: false } },
-            yaxis: { opposite: true, labels: { formatter: (val) => (val / 100).toFixed(2) } },
-            tooltip: { shared: false, y: { formatter: (val) => (val / 100).toFixed(2) } },
+            yaxis: { labels: { formatter: (val) => (val / 100).toFixed(2) } },
+            tooltip: {
+                shared: true,
+                x: { format: "HH:mm:ss" },
+                y: { formatter: (val) => (val / 100).toFixed(2) },
+            },
         };
 
         const chart = new ApexCharts(chartRef.current, options);
         chart.render();
         apexChartRef.current = chart;
 
-        return () => chart.destroy();
+        // Real-time update every second
+        const interval = setInterval(() => {
+            const newX = lastXRef.current + 1000;
+            lastXRef.current = newX;
+
+            const gain = 100 + Math.random() * 100; // green line value
+            const loss = 80 + Math.random() * 80;   // red line value
+
+            apexChartRef.current.appendData([
+                { data: [{ x: newX, y: gain }] },
+                { data: [{ x: newX, y: loss }] },
+            ]);
+        }, 1000);
+
+        return () => {
+            clearInterval(interval);
+            chart.destroy();
+        };
     }, []);
 
-    // Update chart when slide changes
+    // Update title/subtitle on slide change
     useEffect(() => {
         if (apexChartRef.current) {
             apexChartRef.current.updateOptions({
@@ -75,15 +101,6 @@ const Dashboard = () => {
             });
         }
     }, [selectedSlide]);
-
-    // Placeholder AddtoHome function
-    useEffect(() => {
-        const AddtoHome = (param1, param2) => {
-            console.log("AddToHome called with", param1, param2);
-        };
-        AddtoHome("2000", "once");
-    }, []);
-    const slidesForLoop = [...slides, ...slides, ...slides];
 
     return (
         <>
