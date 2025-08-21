@@ -238,7 +238,7 @@ const Wallet = () => {
                         <p>Invite your friends and earn prizes!</p>
                         <div class="row">
                             <div class="col">
-                                <a href="refer.html" class="btn btn-secondary">
+                                <a href="/refer" class="btn btn-secondary">
                                     <ion-icon name="copy-outline"></ion-icon>
                                     Invite now
                                 </a>
